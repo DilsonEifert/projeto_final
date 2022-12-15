@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="\css\default.css">
+    <link rel="stylesheet" href="\css\transacoes.css">
+    <script src="js/js.js"></script>
+    <script src="js/onload.js"></script>
+    <title>Finanças Pessoais</title>
+</head>
+<body>
+    <div class="categorias_manager" id="categorias_manager">
+        <h2 class="title">Categorias</h2>
+        <div class="categorias_manager_menu">
+            <button class="inserir" onclick="cadastrar_categoria()"><img src="/img/plus.png" alt=""></button>
+            <button class="excluir" onclick="remover_categoria()"><img src="/img/minus.png" alt=""></button>
+            <button class="excluir" onclick="this.parentNode.parentNode.style.display = 'none'"><img src="/img/exit.png" alt=""></button>
+            <button class="editar" onclick="editar_categoria()"><img src="/img/edit.png" alt=""></button>
+        </div>
+        <div class="lista">
+            <table id="categorias_manager_table">
+                <thead>
+                    <tr><td></td><td></td></tr>
+                </thead>
+                
+            </table>
+        </div>
+    </div>
+
+    <div class="transacao_form" id="transacao_form">
+        <form id="transacao_form_form">
+            <div class="transacao_form_wrapper">
+                <div class="transacao_form_left">
+                    <label for="descricao">Descrição</label>
+                    <input type="text" id="descricao">
+                    <label for="tipo">Tipo</label>
+                    <select name="" id="tipo">
+                        <option value="c">Crédito</option>
+                        <option value="d">Débito</option>
+                    </select>
+                    <label for="valor">Valor</label>
+                    <input type="text" id="valor">
+                </div>
+                <div class="transacao_form_right">
+                    <label for="categoria">Categoria</label>
+                    <select name="" id="categoria">
+                    </select>
+                    <label for="usuario">Usuário</label>
+                    <select name="" id="usuario">
+                    </select>
+                </div>
+            </div>
+            <div class="transacao_form_buttons">
+                <input type="button" value="OK" onclick="cadastrar_transacao()" id="btn_cadastrar_transacao">
+                <input type="button" value="Cancel" onclick="limpar_transacao_form()">
+            </div>
+        </form>
+    </div>
+
+    <div class="main">
+        <div class="menu"></div>
+        <div class="content">
+            <div class="c-header">
+                <div class="menu-title-wrapper_a">
+                    <div class="menu">
+                        <hr><hr><hr>
+                    </div>
+                    <div class="title">
+                        <h1>Transações</h1>
+                    </div>
+                </div>
+                <div class="user">
+                    <div class="user-name">João da Silva Sauro</div>
+                    <div class="user-avatar"><img src="/img/user_28.png" alt=""></div>
+                    <div class="user-notification">
+                        <div class="icon"><img src="/img/bell.png" alt=""></div>
+                        <div class="qnt"><span></span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="c-display">
+                <div class="c-display-wrapper">
+                    <div class="saldo asd">
+                        <div class="icon"><img src="/img/usd-circle.png" alt=""></div>
+                        <div class="info">
+                            <p class="title">Saldo</p>
+                            <p class="value">R$300,00</p>
+                        </div>
+                    </div>
+                    <div class="in asd">
+                        <div class="icon"><img src="/img/enter.png" alt=""></div>
+                        <div class="info">
+                            <div class="title">Entrada</div>
+                            <div class="value">R$300,00</div>
+                        </div>
+                    </div>
+                    <div class="out asd">
+                        <div class="icon"><img src="/img/exit.png" alt=""></div>
+                        <div class="info">
+                            <div class="title">Saida</div>
+                            <div class="value">R$300,00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="c-menu">
+                <div class="c-menu-wrapper">
+                    <div class="c-menu-left">
+                        <button class="inserir" onclick="transacao_carregar_form_new()">inserir</button>
+                        <button class="categorias" onclick="document.getElementById('categorias_manager').style.display='block'">Categorias</button>
+                        <button class="excluir"><img src="/img/remove.png" alt=""></button>
+                    </div>
+                    <div class="c-menu-right">
+                        <div class="filter"><img src="/img/filter.png" alt=""></div>
+                        <p>Filtrar por:</p>
+                        <select>
+                            <option value="1">option1</option>
+                            <option value="2">option2</option>
+                            <option value="3">option3</option>
+                            <option value="4">option4</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="c-list">
+                <div class="c-list-wrapper">
+                    <table class="c-list-table" id="c-list-table">
+                    </table>
+                    </div>
+                    <div class="c-list-footer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
