@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,7 +40,7 @@ final UsuarioService usuarioService;
 		this.usuarioService = usuarioService;
 	}
 	
-	//@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping
 	public ResponseEntity<Object> saveCategoria(@RequestBody @Valid CategoriaDto categoriaDto){
 		var categoriaModel = new CategoriaModel();
@@ -53,13 +54,8 @@ final UsuarioService usuarioService;
 
 	}
 	
-	//@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+	//@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@GetMapping
-	public ResponseEntity<Object> teste(Principal principal) {
-		
-		return ResponseEntity.status(HttpStatus.FOUND).body(principal.getName());
-	}
-	
 	public ResponseEntity<List<CategoriaModel>> getAllCategoria(){
 		return ResponseEntity.status(HttpStatus.FOUND).body(categoriaService.findAll());
 	}

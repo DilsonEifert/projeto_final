@@ -28,5 +28,8 @@ public class TransacaoDto {
 	
 	@NotNull
 	private UUID categoria_id;
+	
+	@NotNull
+	private UUID conta_id;
 
 }

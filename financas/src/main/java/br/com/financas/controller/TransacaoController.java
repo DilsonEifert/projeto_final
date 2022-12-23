@@ -56,7 +56,7 @@ public class TransacaoController {
 		}
 		transacaoModel.setUsuario(usuarioModelOptional.get());
 		transacaoModel.setCategoria(categoriaModelOptional.get());
-		return ResponseEntity.status(HttpStatus.CREATED).body(transacaoService.save(transacaoModel));
+		return ResponseEntity.status(HttpStatus.CREATED).body(transacaoService.save(transacaoModel, transacaoDto.getConta_id(), false));
 
 	}
 		@GetMapping
@@ -92,7 +92,7 @@ public class TransacaoController {
 			var transacaoModel = transacaoModelOptional.get();
 			BeanUtils.copyProperties(transacaoDto, transacaoModel);
 			
-			return ResponseEntity.status(HttpStatus.OK).body(transacaoService.save(transacaoModel));
+			return ResponseEntity.status(HttpStatus.OK).body(transacaoService.save(transacaoModel, transacaoDto.getConta_id(), true));
 			
 			
 		}
