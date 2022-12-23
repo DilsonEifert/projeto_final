@@ -4,3 +4,22 @@
     margin: 0;
     padding: 0;
 }
+
+.main>.menu{
+    padding-top: 40px;
+}
+
+.main>.menu>ul{
+    list-style-type: none;
+    text-align: center;
+    
+}
+
+.main>.menu>ul>li>a{
+    color: white;   
+    text-decoration: none;
+}
+
+.main>.menu>ul>li{
+    margin-bottom: 10px;
+}

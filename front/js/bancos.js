@@ -101,89 +101,6 @@ function editar_categoria(){
 }
 
 //TRANSAÇÕES
-function listar_transacoes(){
-    c_list_table.innerHTML = ''
-    fetch(url+'transacao')
-    .then((response) => response.json())
-    .then((data) => {
-        thead = document.createElement('thead')
-        thead_tr = document.createElement('tr')
-
-        td_input = document.createElement('td')
-        input = document.createElement('input')
-        input.setAttribute("type","checkbox");
-        td_input.appendChild(input)
-        
-        thead_tr.appendChild(td_input)
-        thead_tr.appendChild(document.createElement('td'))
-        thead_tr.appendChild(document.createElement('td'))
-        td = document.createElement('td')
-        td.appendChild(document.createTextNode('Categoria'))
-        thead_tr.appendChild(td)
-        td = document.createElement('td')
-        td.appendChild(document.createTextNode('Descrição'))
-        thead_tr.appendChild(td)
-        td = document.createElement('td')
-        td.appendChild(document.createTextNode('Valor'))
-        thead_tr.appendChild(td)
-        thead.appendChild(thead_tr)
-        c_list_table.appendChild(thead)
-
-        tbody = document.createElement('tbody')
-        for(i = 0; i < data.length; i++){
-        
-            tr = document.createElement('tr')
-        
-            td_check = document.createElement('td')
-            td_check_input = document.createElement('input')
-            td_check_input.setAttribute('type', 'checkbox')
-            td_check.appendChild(td_check_input)
-
-            td_remove = document.createElement('td')
-            td_remove_img = document.createElement('img')
-            td_remove_img.setAttribute('src', '/img/remove.png')
-            td_remove_img.setAttribute('onclick', "remover_transacao(event)")
-            td_remove.appendChild(td_remove_img)
-
-            td_edit = document.createElement('td')
-            td_edit_img = document.createElement('img')
-            td_edit_img.setAttribute('src', '/img/edit.png')
-            td_edit_img.setAttribute('onclick', "editar_transacao(event)")
-            td_edit.appendChild(td_edit_img)
-
-            td_categoria = document.createElement('td')
-            td_categoria.appendChild(document.createTextNode(data[i].categoria.nome))
-
-            td_descricao = document.createElement('td')
-            td_descricao.appendChild(document.createTextNode(data[i].descricao))
-
-            td_valor = document.createElement('td')
-            if(data[i].credito === 'd'){
-                td_valor.style.color = "red";
-            }
-            td_valor.appendChild(document.createTextNode("R$ "+data[i].valor))
-
-            td_hidden = document.createElement('td')
-            td_hidden_input = document.createElement('input')
-            td_hidden_input.setAttribute('type', 'hidden')
-            td_hidden_input.setAttribute('value', data[i].id)
-            td_hidden.appendChild(td_hidden_input)
-
-            tr.appendChild(td_check)
-            tr.appendChild(td_remove)
-            tr.appendChild(td_edit)
-            tr.appendChild(td_categoria)
-            tr.appendChild(td_descricao)
-            tr.appendChild(td_valor)
-            tr.appendChild(td_hidden)
-
-            tbody.appendChild(tr)
-            c_list_table.appendChild(tbody)
-        }
-        
-    });
-}
-
 function cadastrar_transacao(id){
     if(id == null){
         const d = new Date();
@@ -201,13 +118,11 @@ function cadastrar_transacao(id){
                 valor:transacao_form_form[2].value,
                 categoria_id:transacao_form_form[3].value,
                 usuario_id:transacao_form_form[4].value,
-                conta_id:"0880ff3c-bcae-43b2-b297-3d15ffbc6f52",
                 data:date
             })
         }).then(function(){
             listar_transacoes()
             limpar_transacao_form()
-            carregarSaldo()
         })
 
     } else {
@@ -226,13 +141,11 @@ function cadastrar_transacao(id){
                 valor:transacao_form_form[2].value,
                 categoria_id:transacao_form_form[3].value,
                 usuario_id:transacao_form_form[4].value,
-                conta_id:"0880ff3c-bcae-43b2-b297-3d15ffbc6f52",
                 data:date
             })
         }).then(function(){
             listar_transacoes()
             limpar_transacao_form()
-            carregarSaldo()
         })
     }
     
@@ -277,14 +190,10 @@ function editar_transacao(event){
 }
 
 function limpar_transacao_form(){
-    select_categorias = document.getElementById("categoria")
-    select_usuario = document.getElementById("usuario")
-    select_conta_banco = document.getElementById("conta_banco")
     transacao_form.childNodes[1].reset()
     transacao_form.style.display = 'none'
     select_categorias.innerHTML = ''
     select_usuario.innerHTML = ''
-    select_conta_banco.innerHTML = ''
     btn_cadastrar_transacao.setAttribute("onclick", "cadastrar_transacao()")
 }
 
@@ -325,69 +234,82 @@ function transacao_carregar_form_new(){
         }
     })
     
-    lista3 = new Array;
-
-    fetch(url+'conta')
-    .then((response_u) => response_u.json())
-    .then((data_c) => {
-        for(i = 0; i < data_c.length; i++){
-            lista3.push(data_c[i])
-        }
-        select_conta_banco = document.getElementById("conta_banco")
-        select_conta_banco.innerHTML = ''
-        for(i = 0; i < lista3.length; i++){
-            option = document.createElement("option")
-            option.setAttribute("value", lista3[i].id)
-            optionText = document.createTextNode(lista3[i].descricao)
-            option.appendChild(optionText)
-            select_conta_banco.appendChild(option)
-        }
-    })
 }
 
-//CONTAS
-function carregarSaldo(){
-    lista3 = new Array;
+//BANCOS
 
-    fetch(url+'conta')
-    .then((response_u) => response_u.json())
-    .then((data_c) => {
-        for(i = 0; i < data_c.length; i++){
-            lista3.push(data_c[i])
-        }
-        saldo = 0;
-        saldo_holder = document.getElementById("saldo")
-        for(i = 0; i < lista3.length; i++){
-            saldo += lista3[i].valor
-        }
-        saldo_holder.innerHTML = "R$ "+saldo+",00";
-    })
-    
-}
+function listar_bancos(){
+    c_list_table.innerHTML = ''
+    fetch(url+'banco')
+    .then((response) => response.json())
+    .then((data) => {
+        thead = document.createElement('thead')
+        thead_tr = document.createElement('tr')
 
-function carregarExtrato(){
-    lista = null
-    lista = new Array;
+        td_input = document.createElement('td')
+        input = document.createElement('input')
+        input.setAttribute("type","checkbox");
+        td_input.appendChild(input)
+        
+        thead_tr.appendChild(td_input)
+        thead_tr.appendChild(document.createElement('td'))
+        thead_tr.appendChild(document.createElement('td'))
+        td = document.createElement('td')
+        td.appendChild(document.createTextNode('Nome'))
+        thead_tr.appendChild(td)
+        td = document.createElement('td')
+        td.appendChild(document.createTextNode('Código'))
+        thead_tr.appendChild(td)
+        
+        thead_tr.appendChild(td)
+        thead.appendChild(thead_tr)
+        c_list_table.appendChild(thead)
 
-    fetch(url+'transacao')
-    .then((response_u) => response_u.json())
-    .then((data_c) => {
-        for(i = 0; i < data_c.length; i++){
-            lista.push(data_c[i])
+        tbody = document.createElement('tbody')
+        for(i = 0; i < data.length; i++){
+        
+            tr = document.createElement('tr')
+        
+            td_check = document.createElement('td')
+            td_check_input = document.createElement('input')
+            td_check_input.setAttribute('type', 'checkbox')
+            td_check.appendChild(td_check_input)
+
+            td_remove = document.createElement('td')
+            td_remove_img = document.createElement('img')
+            td_remove_img.setAttribute('src', '/img/remove.png')
+            td_remove_img.setAttribute('onclick', "remover_transacao(event)")
+            td_remove.appendChild(td_remove_img)
+
+            td_edit = document.createElement('td')
+            td_edit_img = document.createElement('img')
+            td_edit_img.setAttribute('src', '/img/edit.png')
+            td_edit_img.setAttribute('onclick', "editar_transacao(event)")
+            td_edit.appendChild(td_edit_img)
+
+            td_categoria = document.createElement('td')
+            td_categoria.appendChild(document.createTextNode(data[i].nome))
+
+            td_descricao = document.createElement('td')
+            td_descricao.appendChild(document.createTextNode(data[i].codigo))
+
+
+            td_hidden = document.createElement('td')
+            td_hidden_input = document.createElement('input')
+            td_hidden_input.setAttribute('type', 'hidden')
+            td_hidden_input.setAttribute('value', data[i].id)
+            td_hidden.appendChild(td_hidden_input)
+
+            tr.appendChild(td_check)
+            tr.appendChild(td_remove)
+            tr.appendChild(td_edit)
+            tr.appendChild(td_categoria)
+            tr.appendChild(td_descricao)
+            tr.appendChild(td_hidden)
+
+            tbody.appendChild(tr)
+            c_list_table.appendChild(tbody)
         }
-        saldoIn = 0;
-        saldoOut = 0;
-        in_holder = document.getElementById("in")
-        out_holder = document.getElementById("out")
-        for(i = 0; i < lista.length; i++){
-            if(lista[i].credito === 'c'){
-                saldoIn += lista[i].valor
-            } else {
-                saldoOut += lista[i].valor
-            }
-            console.log(lista[i].credito)
-        }
-        in_holder.innerHTML = "R$ "+saldoIn+",00";
-        out_holder.innerHTML = "R$ "+saldoOut+",00";
-    })
+        
+    });
 }

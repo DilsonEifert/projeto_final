@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="\css\default.css">
     <link rel="stylesheet" href="\css\transacoes.css">
-    <script src="js/js.js"></script>
-    <script src="js/onload.js"></script>
+    <script src="js/roles.js"></script>
+    <script src="js/onload_roles.js"></script>
     <title>Finanças Pessoais</title>
 </head>
 <body>
@@ -50,9 +50,6 @@
                     <label for="usuario">Usuário</label>
                     <select name="" id="usuario">
                     </select>
-                    <label for="conta_banco">Conta</label>
-                    <select name="" id="conta_banco">
-                    </select>
                 </div>
             </div>
             <div class="transacao_form_buttons">
@@ -74,16 +71,7 @@
         </div>
 
 
-
-
-
-
-
-
-
-
-
-
+        
         <div class="content">
             <div class="c-header">
                 <div class="menu-title-wrapper_a">
@@ -91,11 +79,11 @@
                         <hr><hr><hr>
                     </div>
                     <div class="title">
-                        <h1>Transações</h1>
+                        <h1>Roles</h1>
                     </div>
                 </div>
                 <div class="user">
-                    <div class="user-name">João da Silva Sauro</div>
+                    <div class="user-name">Admin</div>
                     <div class="user-avatar"><img src="/img/user_28.png" alt=""></div>
                     <div class="user-notification">
                         <div class="icon"><img src="/img/bell.png" alt=""></div>
@@ -103,36 +91,10 @@
                     </div>
                 </div>
             </div>
-            <div class="c-display">
-                <div class="c-display-wrapper">
-                    <div class="saldo asd">
-                        <div class="icon"><img src="/img/usd-circle.png" alt=""></div>
-                        <div class="info">
-                            <p class="title">Saldo</p>
-                            <p class="value" id="saldo">R$0,00</p>
-                        </div>
-                    </div>
-                    <div class="in asd">
-                        <div class="icon"><img src="/img/enter.png" alt=""></div>
-                        <div class="info">
-                            <div class="title">Entrada</div>
-                            <div class="value" id="in">R$0,00</div>
-                        </div>
-                    </div>
-                    <div class="out asd">
-                        <div class="icon"><img src="/img/exit.png" alt=""></div>
-                        <div class="info">
-                            <div class="title">Saida</div>
-                            <div class="value" id="out">R$0,00</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="c-menu">
                 <div class="c-menu-wrapper">
                     <div class="c-menu-left">
                         <button class="inserir" onclick="transacao_carregar_form_new()">inserir</button>
-                        <button class="categorias" onclick="document.getElementById('categorias_manager').style.display='block'">Categorias</button>
                         <button class="excluir"><img src="/img/remove.png" alt=""></button>
                     </div>
                     <div class="c-menu-right">
